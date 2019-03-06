@@ -64,7 +64,7 @@ func main() {
 }
 
 func checkArgs(_ *types.Event) error {
-	if len(relayConfig.URL) == 0 {
+	if len(relayConfig.URL) == 0 || relayConfig.URL == "" {
 		return fmt.Errorf("--api-url or RELAY_API_URL environment variable is required")
 	}
 
