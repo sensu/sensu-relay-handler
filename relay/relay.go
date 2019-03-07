@@ -52,7 +52,7 @@ func (relay *Relay) SendEvent(event *types.Event) error {
 		return err
 	}
 
-	if statusCode != 200 && statusCode != 202 {
+	if statusCode != 201 && statusCode != 202 {
 		return fmt.Errorf("could not relay event")
 	}
 
