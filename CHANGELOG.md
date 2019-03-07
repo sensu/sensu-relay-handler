@@ -7,7 +7,12 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
-## [0.0.1] - 2000-01-01
+## [0.0.2] - 2019-03-06
+
+### Fixed
+- Agent Events API response code is either 201 or 202
+
+## [0.0.1] - 2019-03-06
 
 ### Added
 - Initial release
