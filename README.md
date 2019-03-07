@@ -16,7 +16,7 @@ Example Sensu Go handler definition:
     },
     "spec": {
         "type": "pipe",
-        "command": "sensu-relay-handler -api-url http://127.0.0.1:3031/events -t 10",
+        "command": "sensu-relay-handler --api-url http://127.0.0.1:3031/events --disable-check-handling --timeout 10",
         "timeout": 12
     }
 }
@@ -31,10 +31,14 @@ Usage:
   sensu-relay-handler [flags]
 
 Flags:
-  -a, --api-url string    The Sensu Go Agent or Backend Events API URL (default "http://127.0.0.1:3031/events")
-  -h, --help              help for sensu-relay-handler
-  -p, --password string   The Sensu Go Events API user password
-  -u, --username string   The Sensu Go Events API username
+  -a, --api-url string             The Sensu Go Agent Events API URL (default "http://127.0.0.1:3031/events")
+  -c, --check-handlers string      The Sensu Go Event Handlers to set in relayed Check Events (replace)
+  -d, --disable-check-handling     Disable Event Handling for relayed Check Events
+  -D, --disable-metrics-handling   Disable Event Handling for relayed Metrics Events
+  -h, --help                       help for sensu-relay-handler
+  -m, --metrics-handlers string    The Sensu Go Event Handlers to set in relayed Metrics Events (replace)
+  -p, --password string            The Sensu Go Events API user password
+  -u, --username string            The Sensu Go Events API username
 ```
 
 [1]: https://github.com/sensu/sensu-go
