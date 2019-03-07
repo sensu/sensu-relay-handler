@@ -25,7 +25,7 @@ var (
 			Argument:  "api-url",
 			Shorthand: "a",
 			Default:   "http://127.0.0.1:3031/events",
-			Usage:     "The Sensu Go Agent or Backend Events API URL",
+			Usage:     "The Sensu Go Agent Events API URL",
 			Value:     &relayConfig.URL,
 		},
 		User: sensu.HandlerConfigOption{
@@ -46,12 +46,52 @@ var (
 			Usage:     "The Sensu Go Events API user password",
 			Value:     &relayConfig.Password,
 		},
+		DisableCheckHandling: sensu.HandlerConfigOption{
+			Path:      "disable-check-handling",
+			Env:       "RELAY_DISABLE_CHECK_HANDLING",
+			Argument:  "disable-check-handling",
+			Shorthand: "d",
+			Default:   false,
+			Usage:     "Disable Event Handling for relayed Check Events",
+			Value:     &relayConfig.DisableCheckHandling,
+		},
+		DisableMetricsHandling: sensu.HandlerConfigOption{
+			Path:      "disable-metrics-handling",
+			Env:       "RELAY_DISABLE_METRICS_HANDLING",
+			Argument:  "disable-metrics-handling",
+			Shorthand: "D",
+			Default:   false,
+			Usage:     "Disable Event Handling for relayed Metrics Events",
+			Value:     &relayConfig.DisableMetricsHandling,
+		},
+		CheckHandlers: sensu.HandlerConfigOption{
+			Path:      "check-handlers",
+			Env:       "RELAY_CHECK_HANDLERS",
+			Argument:  "check-handlers",
+			Shorthand: "c",
+			Default:   "",
+			Usage:     "The Sensu Go Event Handlers to set in relayed Check Events (replace)",
+			Value:     &relayConfig.CheckHandlers,
+		},
+		MetricsHandlers: sensu.HandlerConfigOption{
+			Path:      "metrics-handlers",
+			Env:       "RELAY_METRICS_HANDLERS",
+			Argument:  "metrics-handlers",
+			Shorthand: "m",
+			Default:   "",
+			Usage:     "The Sensu Go Event Handlers to set in relayed Metrics Events (replace)",
+			Value:     &relayConfig.MetricsHandlers,
+		},
 	}
 
 	options = []*sensu.HandlerConfigOption{
 		&relayConfigOptions.URL,
 		&relayConfigOptions.User,
 		&relayConfigOptions.Password,
+		&relayConfigOptions.DisableCheckHandling,
+		&relayConfigOptions.DisableMetricsHandling,
+		&relayConfigOptions.CheckHandlers,
+		&relayConfigOptions.MetricsHandlers,
 	}
 )
 
