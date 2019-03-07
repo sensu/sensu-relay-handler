@@ -7,6 +7,11 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.0.3] - 2019-03-06
+
+### Fixed
+- Updated Travis GitHub token for private repos
+
 ## [0.0.2] - 2019-03-06
 
 ### Fixed
