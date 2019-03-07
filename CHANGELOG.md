@@ -7,6 +7,11 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.0.4] - 2019-03-07
+
+### Added
+- Options to configure Event Check and Metrics handling for relayed Events
+
 ## [0.0.3] - 2019-03-06
 
 ### Fixed
