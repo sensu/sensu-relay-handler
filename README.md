@@ -2,6 +2,8 @@
 
 The [Sensu Go][1] Relay handler is a [Sensu Event Handler][2] that relays Events to another Sensu Go installation.
 
+[Site B Agent] -> (Event) -> [Site B Backend] -> [Relay Handler] -> [Site A Agent] -> [Site A Backend]
+
 ## Configuration
 
 Example Sensu Go handler definition:
