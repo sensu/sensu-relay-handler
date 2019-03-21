@@ -7,6 +7,11 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.0.6] - 2019-03-21
+
+### Changed
+- Readme YAML example Handler definition
+
 ## [0.0.5] - 2019-03-21
 
 ### Fixed
