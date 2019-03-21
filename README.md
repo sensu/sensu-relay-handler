@@ -8,20 +8,18 @@ The [Sensu Go][1] Relay handler is a [Sensu Event Handler][2] that relays Events
 
 Example Sensu Go handler definition:
 
-```json
-{
-    "api_version": "core/v2",
-    "type": "Handler",
-    "metadata": {
-        "namespace": "default",
-        "name": "relay"
-    },
-    "spec": {
-        "type": "pipe",
-        "command": "sensu-relay-handler --api-url http://127.0.0.1:3031/events --disable-check-handling",
-        "timeout": 12
-    }
-}
+```yaml
+api_version: core/v2
+type: Handler
+metadata:
+  namespace: default
+  name: relay
+spec:
+  type: pipe
+  runtime_assets:
+  - sensu-relay-handler
+  command: sensu-relay-handler --api-url http://127.0.0.1:3031/events --disable-check-handling
+  timeout: 30
 ```
 
 ## Usage Examples
