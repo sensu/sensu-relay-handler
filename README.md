@@ -18,7 +18,7 @@ Example Sensu Go handler definition:
     },
     "spec": {
         "type": "pipe",
-        "command": "sensu-relay-handler --api-url http://127.0.0.1:3031/events --disable-check-handling --timeout 10",
+        "command": "sensu-relay-handler --api-url http://127.0.0.1:3031/events --disable-check-handling",
         "timeout": 12
     }
 }
