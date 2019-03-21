@@ -7,6 +7,11 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.0.5] - 2019-03-21
+
+### Fixed
+- Removed timeout flag from usage example (not yet implemented)
+
 ## [0.0.4] - 2019-03-07
 
 ### Added
