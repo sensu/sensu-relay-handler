@@ -4,8 +4,6 @@ The [Sensu Go][1] Relay handler is a [Sensu Event Handler][2] that relays Events
 
 ![Relay Handler](images/relay_handler.png?raw=true"Title")
 
-[Site B Agent] -> (Event) -> [Site B Backend] -> [Relay Handler] -> [Site A Agent] -> [Site A Backend]
-
 # Overview
 
 The `sensu-relay-handler` is designed to allow users to forward events to an alternate sensu-go-backend instance. This can be used to forward events from one enviroment and sent to a different sensu-go-backend instance for handling. This will not relay back subscriptions and checks, as such you still require a sensu-go-backend to manage the remote agents, subscriptions and checks.
