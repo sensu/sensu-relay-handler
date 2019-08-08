@@ -1,5 +1,7 @@
 # Sensu Go Relay Handler
 
+[![Build Status](https://travis-ci.com/sensu/sensu-relay-handler.svg?token=D3sR2y7qtwxXTz3VygZw&branch=master)](https://travis-ci.com/sensu/sensu-relay-handler)
+
 The [Sensu Go][1] Relay handler is a [Sensu Event Handler][2] that relays Events to another Sensu Go installation.
 
 ![Relay Handler](images/relay_handler.png?raw=true"Title")
