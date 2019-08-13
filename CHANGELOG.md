@@ -7,6 +7,12 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+### Changed
+- README & diagram changes
+- Use go modules instead of dep for dependency management
+- Use go 1.12.x for builds
+- Switch to open-source plugins library (sensu-plugins-go-library)
+
 ## [0.0.7] - 2019-03-22
 
 ### Fixed
