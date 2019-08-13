@@ -1,16 +1,10 @@
 language: go
 go:
-- 1.10.x
+- 1.12.x
 install:
-- go get gopkg.in/alecthomas/gometalinter.v1
-- go get github.com/gordonklaus/ineffassign
-- go get github.com/jgautheron/goconst/cmd/goconst
-- go get github.com/kisielk/errcheck
-- go get github.com/golang/dep/cmd/dep
-- dep ensure
+- curl -sfL https://install.goreleaser.com/github.com/golangci/golangci-lint.sh | sh -s -- -b $(go env GOPATH)/bin v1.17.1
 script:
-- gometalinter.v1 --vendor --disable-all --enable=vet --enable=ineffassign
-  --enable=goconst --tests ./...
+- golangci-lint run --disable-all --enable=vet --enable=ineffassign --enable=goconst --tests ./...
 - go test -v -race ./...
 
 before_script:
@@ -34,4 +28,5 @@ after_deploy:
   - bonsai/github-release-upload.sh github_api_token=$GITHUB_TOKEN repo_slug="$TRAVIS_REPO_SLUG" tag="${TRAVIS_TAG}" filename="$(basename "$TRAVIS_REPO_SLUG")_${TRAVIS_TAG}.tgz"
 env:
   global:
+  - GO111MODULE=on
   - secure: XLbn2JMVizweCxVPBLfl5Iyxqa0DO+41EhABWJhU/dTP9lHZN2GvWUSo0YHMn1IFXyyCSRMMTE/umNDlwPOgR8NXhFSL5kkP35S+ux+/HEuSRliY10TIf3unIKm6iTfSUbIDH1RHDekQsyZzqL+kNFh2cCOVXsuJ02t5fbetTKoIaESXZsitItMLfaWXra3c+ovYJt17ameg/y/BPrVMrfOEQkDXtg98sZw5ziTG1vCOVMosdhHNxZxl7O8z83EkE/www7dxftw3C/51JwQwbwtw82ELPovDsgEeq726LzQmW1N7XUlXP94wpsP/NLUYC7dQtUm7diACtwKkemdaC2WzqeNDPwFzWdaf8uZm93kbwFxhjvgZITH2vatWRgQXWW+poa9lB8D9jhqiNzNxPSdobi2G42zLuwwa8IMtquQmI+zJKd/t6LlcjaBI+AVrfrq0hNCZ/q0z3NxyUWFVgzNuIZIVLmdowjBlKANcumYK1z0p/Q8CNeskLfDL4k9k0a5IKt1FaJmJrI1u9U9u6gpkTP5krEkcDQtvNbtwA7XFC0xQJ0+iQRFcO/VGfXkby1PXSNtNw6qL6w7TMYPHQFoSfPVRoa7KxVN1FW7yebBQvOzvzn4IXH1JVDQuxcAPkO7ffoxKDaOB3brw2nlDd5XdQfNrGxszej+3B9t6dgQ=

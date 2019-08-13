@@ -3,14 +3,14 @@ package main
 import (
 	"fmt"
 
-	"github.com/sensu/sensu-enterprise-go-plugin/sensu"
 	"github.com/sensu/sensu-go/types"
+	"github.com/sensu/sensu-plugins-go-library/sensu"
 	"github.com/sensu/sensu-relay-handler/relay"
 )
 
 var (
 	relayConfig = relay.Config{
-		HandlerConfig: sensu.HandlerConfig{
+		PluginConfig: sensu.PluginConfig{
 			Name:     "sensu-relay-handler",
 			Short:    "The Sensu Go handler for relaying Events to another Sensu Go installation",
 			Timeout:  10,
@@ -19,7 +19,7 @@ var (
 	}
 
 	relayConfigOptions = relay.ConfigOptions{
-		URL: sensu.HandlerConfigOption{
+		URL: sensu.PluginConfigOption{
 			Path:      "api-url",
 			Env:       "RELAY_API_URL",
 			Argument:  "api-url",
@@ -28,7 +28,7 @@ var (
 			Usage:     "The Sensu Go Agent Events API URL",
 			Value:     &relayConfig.URL,
 		},
-		User: sensu.HandlerConfigOption{
+		User: sensu.PluginConfigOption{
 			Path:      "username",
 			Env:       "RELAY_API_USERNAME",
 			Argument:  "username",
@@ -37,7 +37,7 @@ var (
 			Usage:     "The Sensu Go Events API username",
 			Value:     &relayConfig.User,
 		},
-		Password: sensu.HandlerConfigOption{
+		Password: sensu.PluginConfigOption{
 			Path:      "password",
 			Env:       "RELAY_API_PASSWORD",
 			Argument:  "password",
@@ -46,7 +46,7 @@ var (
 			Usage:     "The Sensu Go Events API user password",
 			Value:     &relayConfig.Password,
 		},
-		DisableCheckHandling: sensu.HandlerConfigOption{
+		DisableCheckHandling: sensu.PluginConfigOption{
 			Path:      "disable-check-handling",
 			Env:       "RELAY_DISABLE_CHECK_HANDLING",
 			Argument:  "disable-check-handling",
@@ -55,7 +55,7 @@ var (
 			Usage:     "Disable Event Handling for relayed Check Events",
 			Value:     &relayConfig.DisableCheckHandling,
 		},
-		DisableMetricsHandling: sensu.HandlerConfigOption{
+		DisableMetricsHandling: sensu.PluginConfigOption{
 			Path:      "disable-metrics-handling",
 			Env:       "RELAY_DISABLE_METRICS_HANDLING",
 			Argument:  "disable-metrics-handling",
@@ -64,7 +64,7 @@ var (
 			Usage:     "Disable Event Handling for relayed Metrics Events",
 			Value:     &relayConfig.DisableMetricsHandling,
 		},
-		CheckHandlers: sensu.HandlerConfigOption{
+		CheckHandlers: sensu.PluginConfigOption{
 			Path:      "check-handlers",
 			Env:       "RELAY_CHECK_HANDLERS",
 			Argument:  "check-handlers",
@@ -73,7 +73,7 @@ var (
 			Usage:     "The Sensu Go Event Handlers to set in relayed Check Events (replace)",
 			Value:     &relayConfig.CheckHandlers,
 		},
-		MetricsHandlers: sensu.HandlerConfigOption{
+		MetricsHandlers: sensu.PluginConfigOption{
 			Path:      "metrics-handlers",
 			Env:       "RELAY_METRICS_HANDLERS",
 			Argument:  "metrics-handlers",
@@ -84,7 +84,7 @@ var (
 		},
 	}
 
-	options = []*sensu.HandlerConfigOption{
+	options = []*sensu.PluginConfigOption{
 		&relayConfigOptions.URL,
 		&relayConfigOptions.User,
 		&relayConfigOptions.Password,
@@ -96,11 +96,8 @@ var (
 )
 
 func main() {
-	goHandler := sensu.NewGoHandler(&relayConfig.HandlerConfig, options, checkArgs, executeHandler)
-	err := goHandler.Execute()
-	if err != nil {
-		fmt.Printf("Error executing plugin: %s", err)
-	}
+	goHandler := sensu.NewGoHandler(&relayConfig.PluginConfig, options, checkArgs, executeHandler)
+	goHandler.Execute()
 }
 
 func checkArgs(_ *types.Event) error {

@@ -5,13 +5,13 @@ import (
 	"net/http"
 	"strings"
 
-	sensuhttp "github.com/sensu/sensu-enterprise-go-plugin/http"
-	"github.com/sensu/sensu-enterprise-go-plugin/sensu"
 	"github.com/sensu/sensu-go/types"
+	sensuhttp "github.com/sensu/sensu-plugins-go-library/http"
+	"github.com/sensu/sensu-plugins-go-library/sensu"
 )
 
 type Config struct {
-	sensu.HandlerConfig
+	sensu.PluginConfig
 	URL                    string
 	User                   string
 	Password               string
@@ -23,13 +23,13 @@ type Config struct {
 
 // The Relay parameters required to connect to the Rest API
 type ConfigOptions struct {
-	URL                    sensu.HandlerConfigOption
-	User                   sensu.HandlerConfigOption
-	Password               sensu.HandlerConfigOption
-	DisableCheckHandling   sensu.HandlerConfigOption
-	DisableMetricsHandling sensu.HandlerConfigOption
-	CheckHandlers          sensu.HandlerConfigOption
-	MetricsHandlers        sensu.HandlerConfigOption
+	URL                    sensu.PluginConfigOption
+	User                   sensu.PluginConfigOption
+	Password               sensu.PluginConfigOption
+	DisableCheckHandling   sensu.PluginConfigOption
+	DisableMetricsHandling sensu.PluginConfigOption
+	CheckHandlers          sensu.PluginConfigOption
+	MetricsHandlers        sensu.PluginConfigOption
 }
 
 type Relay struct {
