@@ -4,7 +4,7 @@
 
 The [Sensu Go][1] Relay handler is a [Sensu Event Handler][2] that relays Events to another Sensu Go installation.
 
-![Relay Handler](images/relay_handler.png?raw=true"Title")
+![Relay Handler](https://raw.githubusercontent.com/sensu/sensu-relay-handler/master/images/relay_handler.png)
 
 # Overview
 
