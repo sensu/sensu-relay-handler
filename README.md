@@ -44,6 +44,53 @@ spec:
   timeout: 30
 ```
 
+Example Sensu Go check definition:
+
+**check-dummy-app-healthz.json**
+
+```json
+{
+    "api_version": "core/v2",
+    "type": "CheckConfig",
+    "metadata": {
+        "namespace": "default",
+        "name": "dummy-app-healthz"
+    },
+    "spec": {
+        "command": "check-http -u http://localhost:8080/healthz",
+        "subscriptions":[
+            "dummy"
+        ],
+        "publish": true,
+        "interval": 10,
+        "handlers": [
+            "relay"
+        ]
+    }
+}
+```
+
+**check-dummy-app-healthz.yml**
+
+```yaml
+---
+api_version: core/v2
+type: CheckConfig
+metadata:
+  namespace: default
+  name: dummy-app-healthz
+spec:
+  command: check-http -u http://localhost:8080/healthz
+  subscriptions:
+  - dummy
+  publish: true
+  interval: 10
+  handlers:
+  - relay
+```
+
+
+
 ## Asset configuration
 
 ### Asset registration
