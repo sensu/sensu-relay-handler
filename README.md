@@ -46,7 +46,13 @@ spec:
 
 ## Asset configuration
 
-See [Sensu-Relay-Handler](3) at bonsai.sensu.io for asset creation info.
+### Asset registration
+
+Assets are the best way to make use of this handler. If you're not using an asset, please consider doing so! If you're using sensuctl 5.13 or later, you can use the following command to add the asset: 
+
+`sensuctl asset add sensu/sensu-relay-handler`
+
+If you're using an earlier version of sensuctl, you can download the asset definition from [this project's Bonsai Asset Index page](https://bonsai.sensu.io/assets/sensu/sensu-relay-handler).
 
 ## Usage Examples
 
