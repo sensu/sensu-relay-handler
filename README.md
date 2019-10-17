@@ -67,6 +67,19 @@ Flags:
   -u, --username string            The Sensu Go Events API username
 ```
 
+
+## Installing from source and contributing
+
+The preferred way of installing and deploying this plugin is to use it as an [asset]. If you would like to compile and install the plugin from source, or contribute to it, download the latest version of the sensu-relay-handler from [releases][4],
+or create an executable script from this source.
+
+From the local path of the relay-handler repository:
+```
+go build -o /usr/local/bin/sensu-relay-handler main.go
+```
+
+
 [1]: https://github.com/sensu/sensu-go
 [2]: https://docs.sensu.io/sensu-go/latest/reference/handlers/#how-do-sensu-handlers-work
 [3]: https://bonsai.sensu.io/assets/sensu/sensu-relay-handler
+[4]: https://github.com/sensu/sensu-relay-handler/releases
