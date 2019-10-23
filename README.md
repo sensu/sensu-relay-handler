@@ -1,6 +1,6 @@
 # Sensu Go Relay Handler
 
-[![Build Status](https://travis-ci.com/sensu/sensu-relay-handler.svg?token=D3sR2y7qtwxXTz3VygZw&branch=master)](https://travis-ci.com/sensu/sensu-relay-handler)
+[![Bonsai Asset Badge](https://img.shields.io/badge/Sensu%20Relay%20Handler-Download%20Me-brightgreen.svg?colorB=89C967&logo=sensu)](https://bonsai.sensu.io/assets/sensu/sensu-relay-handler) [![Build Status](https://travis-ci.com/sensu/sensu-relay-handler.svg?token=D3sR2y7qtwxXTz3VygZw&branch=master)](https://travis-ci.com/sensu/sensu-relay-handler)
 
 The [Sensu Go][1] Relay handler is a [Sensu Event Handler][2] that relays Events to another Sensu Go installation.
 
@@ -44,9 +44,62 @@ spec:
   timeout: 30
 ```
 
+Example Sensu Go check definition:
+
+**check-dummy-app-healthz.json**
+
+```json
+{
+    "api_version": "core/v2",
+    "type": "CheckConfig",
+    "metadata": {
+        "namespace": "default",
+        "name": "dummy-app-healthz"
+    },
+    "spec": {
+        "command": "check-http -u http://localhost:8080/healthz",
+        "subscriptions":[
+            "dummy"
+        ],
+        "publish": true,
+        "interval": 10,
+        "handlers": [
+            "relay"
+        ]
+    }
+}
+```
+
+**check-dummy-app-healthz.yml**
+
+```yaml
+---
+api_version: core/v2
+type: CheckConfig
+metadata:
+  namespace: default
+  name: dummy-app-healthz
+spec:
+  command: check-http -u http://localhost:8080/healthz
+  subscriptions:
+  - dummy
+  publish: true
+  interval: 10
+  handlers:
+  - relay
+```
+
+
+
 ## Asset configuration
 
-See [Sensu-Relay-Handler](3) at bonsai.sensu.io for asset creation info.
+### Asset registration
+
+Assets are the best way to make use of this handler. If you're not using an asset, please consider doing so! If you're using sensuctl 5.13 or later, you can use the following command to add the asset: 
+
+`sensuctl asset add sensu/sensu-relay-handler`
+
+If you're using an earlier version of sensuctl, you can download the asset definition from [this project's Bonsai Asset Index page](https://bonsai.sensu.io/assets/sensu/sensu-relay-handler).
 
 ## Usage Examples
 
@@ -67,6 +120,20 @@ Flags:
   -u, --username string            The Sensu Go Events API username
 ```
 
+
+## Installing from source and contributing
+
+The preferred way of installing and deploying this plugin is to use it as an [asset][5]. If you would like to compile and install the plugin from source, or contribute to it, download the latest version of the sensu-relay-handler from [releases][4],
+or create an executable script from this source.
+
+From the local path of the relay-handler repository:
+```
+go build -o /usr/local/bin/sensu-relay-handler main.go
+```
+
+
 [1]: https://github.com/sensu/sensu-go
 [2]: https://docs.sensu.io/sensu-go/latest/reference/handlers/#how-do-sensu-handlers-work
 [3]: https://bonsai.sensu.io/assets/sensu/sensu-relay-handler
+[4]: https://github.com/sensu/sensu-relay-handler/releasesS
+[5]: https://docs.sensu.io/sensu-go/latest/guides/install-check-executables-with-assets
