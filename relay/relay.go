@@ -1,13 +1,15 @@
 package relay
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strings"
+	"time"
 
-	"github.com/sensu/sensu-go/types"
-	sensuhttp "github.com/sensu/sensu-plugins-go-library/http"
-	"github.com/sensu/sensu-plugins-go-library/sensu"
+	"github.com/sensu-community/sensu-plugin-sdk/sensu"
+	corev2 "github.com/sensu/sensu-go/api/core/v2"
 )
 
 type Config struct {
@@ -21,38 +23,26 @@ type Config struct {
 	MetricsHandlers        string
 }
 
-// The Relay parameters required to connect to the Rest API
-type ConfigOptions struct {
-	URL                    sensu.PluginConfigOption
-	User                   sensu.PluginConfigOption
-	Password               sensu.PluginConfigOption
-	DisableCheckHandling   sensu.PluginConfigOption
-	DisableMetricsHandling sensu.PluginConfigOption
-	CheckHandlers          sensu.PluginConfigOption
-	MetricsHandlers        sensu.PluginConfigOption
-}
-
 type Relay struct {
-	config      Config
-	httpWrapper sensuhttp.HttpWrapper
+	config     *Config
+	httpClient *http.Client
 }
 
 // Creates a new Relay
 func NewRelay(config *Config) (*Relay, error) {
 
-	httpWrapper, err := sensuhttp.NewHttpWrapper(uint64(config.Timeout), "", config.User, config.Password)
-	if err != nil {
-		return nil, fmt.Errorf("could not create http wrapper: %s", err.Error())
+	relay := &Relay{
+		config,
+		&http.Client{
+			Timeout: time.Second * time.Duration(config.Timeout),
+		},
 	}
 
-	return &Relay{
-		*config,
-		*httpWrapper,
-	}, nil
+	return relay, nil
 }
 
 // Relay an Event
-func (relay *Relay) SendEvent(event *types.Event) error {
+func (relay *Relay) SendEvent(event *corev2.Event) error {
 	event.Entity.EntityClass = "proxy"
 
 	if event.HasCheck() {
@@ -75,15 +65,30 @@ func (relay *Relay) SendEvent(event *types.Event) error {
 		}
 	}
 
-	statusCode, _, err := relay.httpWrapper.ExecuteRequest(http.MethodPost, relay.config.URL, event, nil)
+	response, err := relay.RelayRequest(http.MethodPost, relay.config.URL, event)
 
 	if err != nil {
 		return err
 	}
 
-	if statusCode != 201 && statusCode != 202 {
-		return fmt.Errorf("could not relay event")
+	if response.StatusCode != 201 && response.StatusCode != 202 {
+		return fmt.Errorf("could not relay event, http status %d", response.StatusCode)
 	}
 
 	return nil
+}
+
+func (relay *Relay) RelayRequest(method string, RequestURL string, requestBody interface{}) (*http.Response, error) {
+	payload, err := json.Marshal(requestBody)
+	if err != nil {
+		return nil, err
+	}
+
+	request, err := http.NewRequest(method, RequestURL, bytes.NewReader(payload))
+	if err != nil {
+		return nil, err
+	}
+	request.Header.Add("Content-Type", "application/json")
+	request.SetBasicAuth(relay.config.User, relay.config.Password)
+	return relay.httpClient.Do(request)
 }
