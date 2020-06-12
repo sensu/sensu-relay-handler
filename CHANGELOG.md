@@ -7,6 +7,11 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.1.1] - 2020-06-12
+
+### Changed
+- Replace Travis badging with GitHub Actions in README
+
 ## [0.1.0] - 2020-06-12
 
 ### Changed
