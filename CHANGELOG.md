@@ -7,6 +7,8 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [0.1.0] - 2020-06-12
+
 ### Changed
 - Use go 1.13.x for builds
 - Slim down Bonsai and Goreleaser Builds to supported platforms
