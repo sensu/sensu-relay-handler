@@ -10,6 +10,16 @@ The [Sensu Go][1] Relay handler is a [Sensu Event Handler][2] that relays Events
 
 The `sensu-relay-handler` is designed to allow users to forward events to an alternate sensu-go-backend instance. This can be used to forward events from one environment to a separate sensu-go-backend instance for event handling. The `sensu-relay-handler` does not relay back subscriptions and checks. As such, a sensu-go-backend is still required to manage the remote agents, subscriptions and checks.
 
+## Enterprise Plugin
+
+The Sensu Go Relay Handler is an Enterprise plugin that requires a valid Sensu license to run.
+Sensu Go >= 5.21 will add the `SENSU_LICENSE_FILE` environment variable to the handler execution.
+To run the plugin independently of Sensu (ex. test/dev), you must set the env var:
+
+```
+SENSU_LICENSE_FILE=$(sensuctl license info --format json)
+```
+
 ## Setup
 
 The relay-agent is a sensu-go-agent that is local to your remote site network. It will send events to another site's sensu-go-backend. Events will be queued up as normal between an agent and backend.

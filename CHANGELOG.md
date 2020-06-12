@@ -8,6 +8,22 @@ Versioning](http://semver.org/spec/v2.0.0.html).
 ## Unreleased
 
 ### Changed
+- Use go 1.13.x for builds
+- Slim down Bonsai and Goreleaser Builds to supported platforms
+- Switch to GitHub Actions
+- Use Community Plugins library and enforce Enterprise licensing
+- Cleanup options processing
+- Replace HTTPWrapper with traditional Go http package use
+
+## [0.0.9] - 2019-10-23
+
+### Changed
+- Docs image update
+- Added Bonsai Badge
+
+## [0.0.8] - 2019-08-13
+
+### Changed
 - README & diagram changes
 - Use go modules instead of dep for dependency management
 - Use go 1.12.x for builds
